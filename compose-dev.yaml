@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  api-dev:
+    build:
+      context: api
+      target: development
+    entrypoint:
+      - sleep
+      - infinity
+  ui-dev:
+    build:
+      context: ui
+      target: development
+    entrypoint:
+      - sleep
+      - infinity

@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  proxy:
+    build:
+        context: proxy
+    container_name: proxy
+    ports:
+      - "8080:80"
+  db:
+    container_name: db
+    image: 'bitnami/postgresql:latest'
+    ports:
+      - '5432'
+    volumes:
+      - 'db_data:/bitnami/postgresql'
+      - './data/devices.sql:/docker-entrypoint-initdb.d/init.sql'
+    environment:
+      - POSTGRESQL_USERNAME=my_user
+      - POSTGRESQL_PASSWORD=my_password
+      - POSTGRESQL_DATABASE=my_database
+    restart: always
+
+volumes:
+  db_data:
