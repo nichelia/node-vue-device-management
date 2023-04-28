@@ -60,7 +60,7 @@ const createDevice = (request, response) => {
   const { model, brand, release_date, os, is_new, received_datatime } = value;
 
   pool.query(
-    'INSERT INTO devices (model, brand, release_date, os, is_new, received_datatime) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+    'INSERT INTO devices (id, model, brand, release_date, os, is_new, received_datatime) VALUES (uuid_generate_v4(), $1, $2, $3, $4, $5, $6) RETURNING *',
     [model, brand, release_date, os, is_new, received_datatime],
     (error, results) => {
       if (error) {
@@ -95,7 +95,7 @@ const updateDevice = (request, response) => {
 };
 
 const deleteDevice = (request, response) => {
-  const id = parseInt(request.params.id);
+  const id = request.params.id;
 
   pool.query('DELETE FROM devices WHERE id = $1', [id], (error, results) => {
     if (error) {

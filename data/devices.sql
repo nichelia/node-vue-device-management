@@ -14,6 +14,8 @@ CREATE TABLE devices (
 	received_datatime date null default NOW()
 );
 
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 INSERT INTO devices VALUES('7f46c158-c2de-494d-b414-6219ac269384','Amazon Fire Phone','Amazon','2014/07','Android 4.2.2 Jelly Bean');
 INSERT INTO devices VALUES('cdfa794d-056b-4ae0-8585-87b575c75605','Arirang (original)','Arirang (smartphone)','2013','Android 4.0.4 Ice Cream Sandwich');
 INSERT INTO devices VALUES('ca6b6a22-ff3e-4914-8ce1-e91c734a1923','Arirang 171','Arirang (smartphone)','2018','Android 7.? Nougat');
