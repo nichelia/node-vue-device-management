@@ -18,3 +18,8 @@ RUN yarn install --modules-folder="/app/node_modules"
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends git
+
+FROM build as production
+
+EXPOSE 8080
+CMD ["yarn", "start"]

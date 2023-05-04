@@ -1,12 +1,25 @@
 version: '3'
 
 services:
+  api:
+    build:
+      context: api
+      target: production
+    container_name: api
+    restart: always
+  ui:
+    build:
+      context: ui
+      target: production
+    container_name: ui
+    restart: always
   proxy:
     build:
         context: proxy
     container_name: proxy
     ports:
       - "8080:80"
+      - "8081:8081"
   db:
     container_name: db
     image: 'bitnami/postgresql:latest'
