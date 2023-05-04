@@ -83,7 +83,7 @@ const updateDevice = (request, response) => {
   const { model, brand, release_date, os, is_new, received_datatime } = value;
 
   pool.query(
-    'UPDATE devices SET model = $1, brand = $2, release_date = $3, os = $4, is_new = $5, received_datatime = $6, update_datetime = NOW() WHERE id = $7',
+    'UPDATE devices SET model = $1, brand = $2, release_date = $3, os = $4, is_new = $5, received_datatime = $6 WHERE id = $7',
     [model, brand, release_date, os, is_new, received_datatime, id],
     (error, results) => {
       if (error) {

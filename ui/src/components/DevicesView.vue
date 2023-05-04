@@ -249,7 +249,9 @@ export default {
 
     async editRemoteDevice () {
       try {
-        await DevicesAPI.update(this.editedDevice.id, this.editedDevice);
+        this.objId = this.editedDevice.id
+        delete this.editedDevice["id"]
+        await DevicesAPI.update(this.objId, this.editedDevice);
       } catch (error) {
         console.error(error);
         throw error;
