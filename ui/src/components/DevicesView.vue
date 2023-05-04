@@ -13,39 +13,45 @@
             </v-card-title>
             <v-card-text>
               <v-container>
-                <v-row>
-                  <v-text-field
-                    v-model="editedDevice.brand"
-                    :rules="[rules.required]"
-                  >
-                  <template #label>
-                    <span><strong>* </strong></span>Brand
-                  </template>
-                </v-text-field>
-                </v-row>
-                <v-row>
-                  <v-text-field
-                    v-model="editedDevice.model"
-                    :rules="[rules.required]"
-                  >
-                  <template #label>
-                    <span><strong>* </strong></span>Model
-                  </template>
-                </v-text-field>
-                </v-row>
-                <v-row>
-                  <v-text-field
-                    v-model="editedDevice.os"
-                    label="OS"
-                  ></v-text-field>
-                </v-row>
-                <v-row>
-                  <v-text-field
-                    v-model="editedDevice.release_date"
-                    label="Release Date"
-                    :rules="releaseDateRule"
-                  ></v-text-field>
-                </v-row>
+                <v-form ref="form">
+                  <v-row>
+                    <v-text-field
+                      v-model="editedDevice.brand"
+                      :rules="requiredField"
+                      label="Brand"
+                      required
+                    >
+                      <template #label>
+                        <span><strong>* </strong></span>Brand
+                      </template>
+                    </v-text-field>
+                  </v-row>
+                  <v-row>
+                    <v-text-field
+                      v-model="editedDevice.model"
+                      :rules="requiredField"
+                      label="Model"
+                      required
+                    >
+                      <template #label>
+                        <span><strong>* </strong></span>Model
+                      </template>
+                    </v-text-field>
+                  </v-row>
+                  <v-row>
+                    <v-text-field
+                      v-model="editedDevice.os"
+                      label="OS"
+                    ></v-text-field>
+                  </v-row>
+                  <v-row>
+                    <v-text-field
+                      v-model="editedDevice.release_date"
+                      label="Release Date"
+                      :rules="releaseDateRule"
+                    ></v-text-field>
+                  </v-row>
+                </v-form>
               </v-container>
             </v-card-text>
 
@@ -169,7 +175,8 @@ export default {
     totalItems: 0,
     search: '',
     rules: {
-      required: (value) => !!value || "Required."
+      required: (value) => !!value || "Required.",
+      releaseDateRule: (value) => !value || /^\d{4}\/(0?[1-9]|1[0-2])$/.test(value) || 'Release Date must be in the format YYYY/MM and a valid month'
     },
   }),
 
@@ -179,8 +186,12 @@ export default {
     },
     releaseDateRule () {
       return [
-        v => !!v || 'Release Date is required',
-        v => /^\d{4}\/(0?[1-9]|1[0-2])$/.test(v) || 'Release Date must be in the format YYYY/MM and a valid month'
+        this.rules.releaseDateRule
+      ]
+    },
+    requiredField () {
+      return [
+        this.rules.required
       ]
     }
   },
@@ -246,6 +257,11 @@ export default {
     },
 
     async save () {
+      this.formValidation = await this.$refs.form.validate()
+      if (!this.formValidation.valid) {
+        return
+      }
+
       if (this.editedIndex > -1) {
         Object.assign(this.items[this.editedIndex], this.editedDevice)
         await this.editRemoteDevice()
