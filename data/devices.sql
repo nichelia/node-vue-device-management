@@ -12,6 +12,8 @@ CREATE TABLE devices (
 	os varchar NULL,
 	is_new bool null default false,
 	received_datatime date null default NOW()
+	created_datetime timestamp without time zone default NOW(),
+	update_datetime timestamp without time zone default null
 );
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
