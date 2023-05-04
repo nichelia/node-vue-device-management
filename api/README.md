@@ -1,8 +1,8 @@
-# Frontend UI
+# Backend API
 
 ## About
 
-This repository contains the source code for the Vue-based frontend UI. 
+This repository contains the source code for the Node-based backend API. 
 For more information about this project, please read the `README.md` file at the root.
 
 ## Development
@@ -39,7 +39,7 @@ To set up the development environment, follow these steps:
     task dev
     ```
 
-- When prompted, choose the container with the name `device-management-dev-ui-dev-1` to open in VSCode. 
+- When prompted, choose the container with the name `device-management-dev-api-dev-1` to open in VSCode. 
 - To see the logs of the containers, run the command:
 
     ```bash
@@ -50,10 +50,10 @@ To set up the development environment, follow these steps:
 
     ```bash
     cd api
-    yarn dev
+    yarn start
     ```
 
-- To access the server on a browser, go to `http://localhost:3000`:
+- To access the server on a browser, go to `http://localhost:8000`:
 - To cleanup the docker dev environment, run the command:
 
     ```bash
